@@ -1,6 +1,7 @@
 # Replace std to jsr
 
-The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to `jsr:@std/some-module@x.y.z/`.
+The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to
+`jsr:@std/some-module@x.y.z/`.
 
 ## Usage
 
@@ -20,7 +21,6 @@ Options:
   -h, --help  - Show this help.
   --dry-run   - dry run mode. Result show in stdout  (Default: false)
 ```
-
 
 ## License
 
