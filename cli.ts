@@ -8,7 +8,9 @@ import { groupName } from "./regexp.ts";
 if (import.meta.main) {
   const { args, options } = await new Command()
     .name("replace-std-to-jsr")
-    .description("The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to `jsr:@std/some-module@x.y.z/`")
+    .description(
+      "The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to `jsr:@std/some-module@x.y.z/`",
+    )
     .arguments("<...in:string>")
     .option("--dry-run", "dry run mode. Result show in stdout", {
       default: false,
