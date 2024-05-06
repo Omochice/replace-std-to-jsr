@@ -1,4 +1,4 @@
-import { createGraph } from "jsr:@deno/graph";
+import { createGraph } from "jsr:@deno/graph@0.74.0";
 import { ensure, is } from "jsr:@core/unknownutil@3.18.0";
 import { type Dependency, isModuleGraph } from "./type.ts";
 
