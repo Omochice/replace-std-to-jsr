@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Omochice/replace-std-to-jsr/compare/v0.1.1...v0.1.2) (2024-05-06)
+
+
+### Miscellaneous Chores
+
+* fit user nsme ([#7](https://github.com/Omochice/replace-std-to-jsr/issues/7)) ([160ff46](https://github.com/Omochice/replace-std-to-jsr/commit/160ff468f52a89aded0ec941c3d2962770280e0f))
+
 ## [0.1.1](https://github.com/Omochice/replace-std-to-jsr/compare/v0.1.0...v0.1.1) (2024-05-06)
 
 
