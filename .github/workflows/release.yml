@@ -1,0 +1,34 @@
+name: release-please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@a37ac6e4f6449ce8b3f7607e4d97d0146028dc0b # v4.1.0
+        id: release
+        with:
+          release-type: simple
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          fetch-depth: 0
+      - name: Setup deno
+        uses: denoland/setup-deno@041b854f97b325bd60e53e9dc2de9cb9f9ac0cba # v1.1.4
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Bump up jsr.json
+        run: deno run --allow-write --allow-read internal/bumpup.ts jsr.json --next ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Upload Release Artifact
+        run: deno publish --allow-dirty --config jsr.json
+        if: ${{ steps.release.outputs.release_created }}
+
