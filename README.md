@@ -6,7 +6,7 @@ The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to
 ## Usage
 
 ```console
-deno run --allow-read --allow-write --allow-env=HOME --allow-net jsr:@Omochice/replace-std-to-jsr@0.1.0/cli <target filepaths>
+deno run --allow-read --allow-write --allow-env=HOME --allow-net jsr:@Omochice/replace-std-to-jsr@0.1.2/cli <target filepaths>
 ```
 
 ```console
