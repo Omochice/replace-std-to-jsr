@@ -1,7 +1,3 @@
-import {
-  type ExportDeclaration,
-  type ImportDeclaration,
-} from "npm:ts-morph@22.0.0";
 import { createLookUpTable, fetchMetaData } from "./metadata.ts";
 import { join } from "jsr:@std/path@0.224.0";
 import { Dependency } from "./type.ts";
@@ -27,21 +23,19 @@ function getModule(specifier: string): CreateReplaceStringOptions | undefined {
   if (matched == null) {
     return;
   }
-  const path = `./${matched.groups?.path}`;
-  const mod = matched.groups?.moduleName;
-  const version = matched.groups?.version;
-  if (mod == null || version == null) {
+  const { path, moduleName, version } = matched.groups ?? {};
+  if (path == null || moduleName == null || version == null) {
     return;
   }
   return {
-    mod,
+    moduleName,
     version,
-    path,
+    path: `./${path}`,
   };
 }
 
 type CreateReplaceStringOptions = {
-  mod: string;
+  moduleName: string;
   version: string;
   path: string;
 };
@@ -49,9 +43,10 @@ type CreateReplaceStringOptions = {
 async function createReplaceString(
   opt: CreateReplaceStringOptions,
 ): Promise<string> {
-  const { mod, version, path } = opt;
-  const jsrModule = `jsr:@std/${mod}@${version}`;
-  const meta = cache.get(jsrModule) ?? (await fetchMetaData(mod, version));
+  const { moduleName, version, path } = opt;
+  const jsrModule = `jsr:@std/${moduleName}@${version}`;
+  const meta = cache.get(jsrModule) ??
+    (await fetchMetaData(moduleName, version));
   cache.set(jsrModule, meta);
   const lup = createLookUpTable(meta);
   const exportTo = lup.get(path);

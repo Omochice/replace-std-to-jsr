@@ -24,17 +24,19 @@ import { Dependency } from "./type.ts";
  * const deps = await collectDirectDependencies("mod.ts");
  * // [
  * //   {
- * //     specifier: "jsr:@std@0.224.0/assert",
+ * //     specifier: '"jsr:@std@0.224.0/assert"',
+ * //     statement: <StringLiteral>,
  * //     code: {
  * //       specifier: "jsr:@std@0.224.0/assert",
  * //       span: {
  * //         start: { line: 0, character: 23 },
- * //         end: { line: 0, character: 49 }
+ * //         end: { line: 0, character: 48 }
  * //       }
  * //     }
  * //   },
  * //   {
- * //     specifier: "./bar.ts",
+ * //     specifier: '"./bar.ts"',
+ * //     statement: <StringLiteral>,
  * //     code: {
  * //       specifier: "file:///path/to/bar.ts",
  * //       span: {

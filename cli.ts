@@ -29,7 +29,7 @@ const command = new Command()
  * Process the given file
  *
  * @param filename The filename
- * @param overwrite whether to overwrite
+ * @returns The replaced file content
  */
 async function process(filename: URL): Promise<string> {
   const deps = collectDirectDependencies(filename.pathname);
