@@ -1,6 +1,10 @@
-import { createGraph } from "jsr:@deno/graph@0.74.0";
-import { ensure, is } from "jsr:@core/unknownutil@3.18.0";
-import { type Dependency, isModuleGraph } from "./type.ts";
+import {
+  type ExportDeclaration,
+  type ImportDeclaration,
+  Node,
+  Project,
+} from "npm:ts-morph@22.0.0";
+import { Dependency } from "./type.ts";
 
 /**
  * Collect the direct dependencies of a module
@@ -20,17 +24,19 @@ import { type Dependency, isModuleGraph } from "./type.ts";
  * const deps = await collectDirectDependencies("mod.ts");
  * // [
  * //   {
- * //     specifier: "jsr:@std@0.224.0/assert",
+ * //     specifier: '"jsr:@std@0.224.0/assert"',
+ * //     statement: <StringLiteral>,
  * //     code: {
  * //       specifier: "jsr:@std@0.224.0/assert",
  * //       span: {
  * //         start: { line: 0, character: 23 },
- * //         end: { line: 0, character: 49 }
+ * //         end: { line: 0, character: 48 }
  * //       }
  * //     }
  * //   },
  * //   {
- * //     specifier: "./bar.ts",
+ * //     specifier: '"./bar.ts"',
+ * //     statement: <StringLiteral>,
  * //     code: {
  * //       specifier: "file:///path/to/bar.ts",
  * //       span: {
@@ -42,14 +48,36 @@ import { type Dependency, isModuleGraph } from "./type.ts";
  * // ]
  * ````
  */
-export async function collectDirectDependencies(
+export function collectDirectDependencies(
   filename: string,
-): Promise<Dependency[]> {
-  const graph = ensure(await createGraph(filename), isModuleGraph);
-  const root = ensure(graph.roots[0], is.String);
-  const deps = graph.modules.filter((mod) => mod.specifier === root);
-  return deps.map(
-    (dep) => dep.dependencies ?? [],
-  )
-    .flat();
+): Dependency[] {
+  const project = new Project();
+  const file = project.addSourceFileAtPath(filename);
+
+  return file.getStatements()
+    .filter((s): s is ImportDeclaration | ExportDeclaration => {
+      return Node.isImportDeclaration(s) || Node.isExportDeclaration(s);
+    })
+    .map((s) => {
+      const specifier = s.getModuleSpecifier();
+      if (specifier == null) {
+        return;
+      }
+      const start = file.getLineAndColumnAtPos(specifier.getStart());
+      const end = file.getLineAndColumnAtPos(specifier.getEnd());
+      // NOTE: line and column are 1-based
+      return {
+        specifier: specifier.getText(),
+        statement: specifier,
+        start: {
+          line: start.line - 1,
+          character: start.column - 1,
+        },
+        end: {
+          line: end.line - 1,
+          character: end.column - 1,
+        },
+      };
+    })
+    .filter((s): s is Dependency => s != null);
 }
