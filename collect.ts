@@ -4,6 +4,7 @@ import {
   Node,
   Project,
 } from "npm:ts-morph@22.0.0";
+import { Dependency } from "./type.ts";
 
 /**
  * Collect the direct dependencies of a module
@@ -47,12 +48,34 @@ import {
  */
 export function collectDirectDependencies(
   filename: string,
-): Array<ImportDeclaration | ExportDeclaration> {
+): Dependency[] {
   const project = new Project();
   const file = project.addSourceFileAtPath(filename);
 
   return file.getStatements()
-    .filter((s): s is ImportDeclaration | ExportDeclaration =>
-      Node.isImportDeclaration(s) || Node.isExportDeclaration(s)
-    );
+    .filter((s): s is ImportDeclaration | ExportDeclaration => {
+      return Node.isImportDeclaration(s) || Node.isExportDeclaration(s);
+    })
+    .map((s) => {
+      const specifier = s.getModuleSpecifier();
+      if (specifier == null) {
+        return;
+      }
+      const start = file.getLineAndColumnAtPos(specifier.getStart());
+      const end = file.getLineAndColumnAtPos(specifier.getEnd());
+      // NOTE: line and column are 1-based
+      return {
+        specifier: specifier.getText(),
+        statement: specifier,
+        start: {
+          line: start.line - 1,
+          character: start.column - 1,
+        },
+        end: {
+          line: end.line - 1,
+          character: end.column - 1,
+        },
+      };
+    })
+    .filter((s): s is Dependency => s != null);
 }

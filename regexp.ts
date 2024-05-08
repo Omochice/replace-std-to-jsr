@@ -4,24 +4,22 @@ import {
 } from "npm:ts-morph@22.0.0";
 import { createLookUpTable, fetchMetaData } from "./metadata.ts";
 import { join } from "jsr:@std/path@0.224.0";
+import { Dependency } from "./type.ts";
+
+const cache = new Map<string, Record<string, string>>();
 
 const re =
   /https:\/\/deno\.land\/std@(?<version>\d+\.\d+\.\d+)\/(?<moduleName>[^\/]+)\/(?<path>[^"']+)/;
 
 export async function replaceStdToJsr(
-  declaration: ExportDeclaration | ImportDeclaration,
+  dependency: Dependency,
 ): Promise<void> {
-  const specifier = declaration.getModuleSpecifier();
-  if (specifier == null) {
-    return;
-  }
-  const literal = specifier.getText();
-  const module = getModule(literal);
+  const module = getModule(dependency.specifier);
   if (module == null) {
     return;
   }
   const newSpecifier = `"${await createReplaceString(module)}"`;
-  specifier.replaceWithText(newSpecifier);
+  dependency.statement.replaceWithText(newSpecifier);
 }
 
 function getModule(specifier: string): CreateReplaceStringOptions | undefined {
@@ -53,7 +51,8 @@ async function createReplaceString(
 ): Promise<string> {
   const { mod, version, path } = opt;
   const jsrModule = `jsr:@std/${mod}@${version}`;
-  const meta = await fetchMetaData(mod, version);
+  const meta = cache.get(jsrModule) ?? (await fetchMetaData(mod, version));
+  cache.set(jsrModule, meta);
   const lup = createLookUpTable(meta);
   const exportTo = lup.get(path);
   if (exportTo == null) {
