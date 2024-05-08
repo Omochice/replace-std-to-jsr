@@ -11,7 +11,7 @@ if (import.meta.main) {
     .description(
       "The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to `jsr:@std/some-module@x.y.z/`",
     )
-    .arguments("<...in:string>")
+    .arguments("<...filenames:string>")
     .option("--dry-run", "dry run mode. Result show in stdout", {
       default: false,
     })
