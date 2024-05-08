@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/Omochice/replace-std-to-jsr/compare/v0.1.2...v0.2.0) (2024-05-08)
+
+
+### Performance Improvements
+
+* fast to collect dependency ([#13](https://github.com/Omochice/replace-std-to-jsr/issues/13)) ([0158888](https://github.com/Omochice/replace-std-to-jsr/commit/01588883dcb328130228f47e423530e6772297ab))
+
 ## [0.1.2](https://github.com/Omochice/replace-std-to-jsr/compare/v0.1.1...v0.1.2) (2024-05-06)
 
 
