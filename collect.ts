@@ -1,6 +1,9 @@
-import { createGraph } from "jsr:@deno/graph@0.74.0";
-import { ensure, is } from "jsr:@core/unknownutil@3.18.0";
-import { type Dependency, isModuleGraph } from "./type.ts";
+import {
+  type ExportDeclaration,
+  type ImportDeclaration,
+  Node,
+  Project,
+} from "npm:ts-morph@22.0.0";
 
 /**
  * Collect the direct dependencies of a module
@@ -42,25 +45,14 @@ import { type Dependency, isModuleGraph } from "./type.ts";
  * // ]
  * ````
  */
-export async function collectDirectDependencies(
+export function collectDirectDependencies(
   filename: string,
-): Promise<Dependency[]> {
-  const graph = ensure(await createGraph(filename), isModuleGraph);
-  const root = ensure(graph.roots[0], is.String);
-  const deps = graph.modules.filter((mod) => mod.specifier === root);
-  return deps
-    .map((dep) => dep.dependencies ?? [])
-    .flat()
-    .map((dep) => {
-      return [dep.code ?? [], dep.types ?? []]
-        .flat()
-        .map((d) => {
-          return {
-            specifier: dep.specifier,
-            start: d.span.start,
-            end: d.span.end,
-          };
-        });
-    })
-    .flat();
+): Array<ImportDeclaration | ExportDeclaration> {
+  const project = new Project();
+  const file = project.addSourceFileAtPath(filename);
+
+  return file.getStatements()
+    .filter((s): s is ImportDeclaration | ExportDeclaration =>
+      Node.isImportDeclaration(s) || Node.isExportDeclaration(s)
+    );
 }
