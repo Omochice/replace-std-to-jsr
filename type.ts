@@ -1,6 +1,16 @@
-import { is, type PredicateType } from "jsr:@core/unknownutil@3.18.0";
+import { is } from "jsr:@core/unknownutil@3.18.0";
 
-export type Dependency = PredicateType<typeof isDependency>;
+export type Dependency = {
+  specifier: string;
+  start: {
+    line: number;
+    character: number;
+  };
+  end: {
+    line: number;
+    character: number;
+  };
+};
 
 /**
  * Determine whether the given value is a Range

@@ -51,19 +51,18 @@ async function process(filename: URL): Promise<string> {
         console.error(`Not found ${path} in ${jsrModule}`);
         continue;
       }
-      for (const range of [file.code, file.types].filter((t) => t != null)) {
-        // NOTE: ts 5.5 will fix this `possible null` issue
-        const newPath = join(jsrModule, exportTo);
-        if (range!.span.start.line !== range!.span.end.line) {
-          console.error("Not support multi line replacement yet.");
-          continue;
-        }
-        const line = contents[range!.span.start.line];
-        const pre = line.slice(0, range!.span.start.character);
-        const post = line.slice(range!.span.end.character);
-        const newLine = `${pre}"${newPath}"${post}`;
-        contents[range!.span.start.line] = newLine;
+
+      // NOTE: ts 5.5 will fix this `possible null` issue
+      const newPath = join(jsrModule, exportTo);
+      if (file.start!.line !== file.end!.line) {
+        console.error("Not support multi line replacement yet.");
+        continue;
       }
+      const line = contents[file!.start.line];
+      const pre = line.slice(0, file!.start.character);
+      const post = line.slice(file!.end.character);
+      const newLine = `${pre}"${newPath}"${post}`;
+      contents[file!.start.line] = newLine;
     }
   }
   return contents.join("\n");

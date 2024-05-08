@@ -48,8 +48,19 @@ export async function collectDirectDependencies(
   const graph = ensure(await createGraph(filename), isModuleGraph);
   const root = ensure(graph.roots[0], is.String);
   const deps = graph.modules.filter((mod) => mod.specifier === root);
-  return deps.map(
-    (dep) => dep.dependencies ?? [],
-  )
+  return deps
+    .map((dep) => dep.dependencies ?? [])
+    .flat()
+    .map((dep) => {
+      return [dep.code ?? [], dep.types ?? []]
+        .flat()
+        .map((d) => {
+          return {
+            specifier: dep.specifier,
+            start: d.span.start,
+            end: d.span.end,
+          };
+        });
+    })
     .flat();
 }
