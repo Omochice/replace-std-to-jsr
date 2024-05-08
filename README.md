@@ -3,11 +3,11 @@
 The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to
 `jsr:@std/some-module@x.y.z/`.
 
-
 ## Usage
 
 ```console
 deno run --allow-read --allow-write --allow-env --allow-net=jsr.io --allow-sys=cpus jsr:@Omochice/replace-std-to-jsr@0.2.0 <target filepaths>
+```
 
 ```console
 Usage: replace-std-to-jsr <filenames...>
@@ -22,7 +22,8 @@ Options:
   --dry-run   - dry run mode. Result show in stdout  (Default: false)
 ```
 
-This script(All are used by [ts-morph](https://github.com/dsherret/ts-morph)) reads bellow environments.
+This script(All are used by [ts-morph](https://github.com/dsherret/ts-morph))
+reads bellow environments.
 
 - `TS_ETW_MODULE_PATH`
 - `TSC_WATCHFILE`
@@ -44,8 +45,6 @@ This script(All are used by [ts-morph](https://github.com/dsherret/ts-morph)) re
 - `__TESTING_MKDIRP_PLATFORM__`
 - `__TESTING_MKDIRP_NODE_VERSION__`
 
-
 ## License
 
 [zlib](./LICENSE)
-
