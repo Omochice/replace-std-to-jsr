@@ -1,5 +1,5 @@
 import { Command } from "jsr:@cliffy/command@1.0.0-rc.4";
-import { resolve, toFileUrl } from "jsr:@std/path@0.224.0";
+import { resolve, toFileUrl } from "jsr:@std/path@0.225.1";
 
 import { collectDirectDependencies } from "./collect.ts";
 import { replaceStdToJsr } from "./regexp.ts";
