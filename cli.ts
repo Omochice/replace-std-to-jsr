@@ -1,8 +1,6 @@
 import { Command } from "jsr:@cliffy/command@1.0.0-rc.4";
 import { resolve, toFileUrl } from "jsr:@std/path@0.225.1";
-
-import { collectDirectDependencies } from "./collect.ts";
-import { replaceStdToJsr } from "./regexp.ts";
+import { process } from "./process.ts";
 
 const command = new Command()
   .name("replace-std-to-jsr")
@@ -24,22 +22,6 @@ const command = new Command()
       }
     }
   });
-
-/**
- * Process the given file
- *
- * @param filename The filename
- * @returns The replaced file content
- */
-async function process(filename: URL): Promise<string> {
-  const deps = collectDirectDependencies(filename.pathname);
-  for (const dep of deps) {
-    await replaceStdToJsr(dep);
-  }
-
-  return deps.at(0)?.statement.getSourceFile().getText() ??
-    Deno.readTextFileSync(filename);
-}
 
 if (import.meta.main) {
   await command
