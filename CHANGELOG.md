@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/Omochice/replace-std-to-jsr/compare/v0.2.0...v0.2.1) (2024-05-25)
+
+
+### Bug Fixes
+
+* keep header if include it as file head ([#23](https://github.com/Omochice/replace-std-to-jsr/issues/23)) ([b4bdddc](https://github.com/Omochice/replace-std-to-jsr/commit/b4bdddc53655dd26581162bbf597e031db1198d3))
+
 ## [0.2.0](https://github.com/Omochice/replace-std-to-jsr/compare/v0.1.2...v0.2.0) (2024-05-08)
 
 
