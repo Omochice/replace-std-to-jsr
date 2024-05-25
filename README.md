@@ -8,7 +8,7 @@ The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to
 ## Usage
 
 ```console
-deno run --allow-read --allow-write --allow-env --allow-net=jsr.io --allow-sys=cpus jsr:@omochice/replace-std-to-jsr@0.2.0 <target filepaths>
+deno run --allow-read --allow-write --allow-env --allow-net=jsr.io --allow-sys=cpus jsr:@omochice/replace-std-to-jsr <target filepaths>
 ```
 
 ```console
