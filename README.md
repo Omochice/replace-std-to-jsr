@@ -1,5 +1,7 @@
 # Replace std to jsr
 
+[![jsr](https://jsr.io/badges/@omochice/replace-std-to-jsr)](https://jsr.io/@omochice/replace-std-to-jsr)
+
 The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to
 `jsr:@std/some-module@x.y.z/`.
 
