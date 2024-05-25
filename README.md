@@ -1,12 +1,14 @@
 # Replace std to jsr
 
+[![jsr](https://jsr.io/badges/@omochice/replace-std-to-jsr)](https://jsr.io/@omochice/replace-std-to-jsr)
+
 The tiny tool to replace `https://deno.land/std@x.y.z/some-module/` to
 `jsr:@std/some-module@x.y.z/`.
 
 ## Usage
 
 ```console
-deno run --allow-read --allow-write --allow-env --allow-net=jsr.io --allow-sys=cpus jsr:@omochice/replace-std-to-jsr@0.2.0 <target filepaths>
+deno run --allow-read --allow-write --allow-env --allow-net=jsr.io --allow-sys=cpus jsr:@omochice/replace-std-to-jsr <target filepaths>
 ```
 
 ```console
