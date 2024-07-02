@@ -1,4 +1,4 @@
-import { Command } from "jsr:@cliffy/command@1.0.0-rc.4";
+import { Command } from "jsr:@cliffy/command@1.0.0-rc.5";
 
 if (import.meta.main) {
   const { args, options } = await new Command()
