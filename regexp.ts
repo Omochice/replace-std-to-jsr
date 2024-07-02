@@ -1,5 +1,5 @@
 import { createLookUpTable, fetchMetaData } from "./metadata.ts";
-import { join } from "jsr:@std/path@0.225.1";
+import { join } from "jsr:@std/path@0.225.2";
 import { Dependency } from "./type.ts";
 
 const cache = new Map<string, Record<string, string>>();
