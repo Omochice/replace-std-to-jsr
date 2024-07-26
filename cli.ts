@@ -1,5 +1,5 @@
 import { Command } from "jsr:@cliffy/command@1.0.0-rc.5";
-import { resolve, toFileUrl } from "jsr:@std/path@0.225.1";
+import { resolve, toFileUrl } from "jsr:@std/path@1.0.2";
 import { process } from "./process.ts";
 
 const command = new Command()
