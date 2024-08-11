@@ -1,5 +1,5 @@
 {
   "name": "@omochice/replace-std-to-jsr",
-  "version": "unknown",
+  "version": "0.2.1",
   "exports": "./cli.ts"
 }
