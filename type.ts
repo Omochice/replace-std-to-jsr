@@ -1,4 +1,4 @@
-import { is } from "jsr:@core/unknownutil@3.18.1";
+import { is } from "jsr:@core/unknownutil@4.0.3";
 import type { StringLiteral } from "npm:ts-morph@23.0.0";
 
 export type Dependency = {
