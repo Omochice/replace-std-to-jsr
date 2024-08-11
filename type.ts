@@ -1,4 +1,4 @@
-import { is } from "jsr:@core/unknownutil@4.0.3";
+import { as, is } from "jsr:@core/unknownutil@4.0.3";
 import type { StringLiteral } from "npm:ts-morph@23.0.0";
 
 export type Dependency = {
@@ -35,8 +35,8 @@ const isRange = is.ObjectOf({
  */
 export const isDependency = is.ObjectOf({
   specifier: is.String,
-  code: is.OptionalOf(isRange),
-  types: is.OptionalOf(isRange),
+  code: as.Optional(isRange),
+  types: as.Optional(isRange),
 });
 
 /**
@@ -45,7 +45,7 @@ export const isDependency = is.ObjectOf({
 export const isDependencyGraph = is.UnionOf([
   is.ObjectOf({
     specifier: is.String,
-    dependencies: is.OptionalOf(is.ArrayOf(isDependency)),
+    dependencies: as.Optional(is.ArrayOf(isDependency)),
   }),
   is.ObjectOf({
     specifier: is.String,
