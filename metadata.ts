@@ -1,4 +1,4 @@
-import { ensure } from "jsr:@core/unknownutil@4.0.3";
+import { ensure } from "jsr:@core/unknownutil@4.2.0";
 import { isMetadata } from "./type.ts";
 
 /**
