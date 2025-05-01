@@ -1,6 +1,6 @@
 import { assertEquals } from "jsr:@std/assert@1.0.13";
 import { toFileUrl } from "jsr:@std/path@1.0.9";
-import dedent from "npm:dedent@1.5.3";
+import dedent from "npm:dedent@1.6.0";
 import { process } from "./process.ts";
 
 Deno.test("test for process.ts", async (t) => {
