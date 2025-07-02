@@ -1,4 +1,4 @@
-import { Command } from "jsr:@cliffy/command@1.0.0-rc.7";
+import { Command } from "jsr:@cliffy/command@1.0.0-rc.8";
 import { resolve, toFileUrl } from "jsr:@std/path@1.1.1";
 import { process } from "./process.ts";
 
