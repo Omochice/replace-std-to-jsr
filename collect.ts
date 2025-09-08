@@ -3,7 +3,7 @@ import {
   type ImportDeclaration,
   Node,
   Project,
-} from "npm:ts-morph@23.0.0";
+} from "npm:ts-morph@27.0.0";
 import { Dependency } from "./type.ts";
 
 /**
