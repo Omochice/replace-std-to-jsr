@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert@1.0.14";
+import { assertEquals } from "jsr:@std/assert@1.0.19";
 import { toFileUrl } from "jsr:@std/path@1.1.2";
 import dedent from "npm:dedent@1.7.0";
 import { process } from "./process.ts";
